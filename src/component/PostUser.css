@@ -1,0 +1,10 @@
+.displayUser{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    
+}
+.singleData{
+    background-color: aquamarine;
+    margin: 10px;
+    padding: 10px;
+}

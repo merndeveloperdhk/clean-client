@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.menu{
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.menu .active{
+    color: red;
+}
+
+.adminMenu .active{
+    color: red;
+}
