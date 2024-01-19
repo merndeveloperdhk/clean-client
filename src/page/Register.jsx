@@ -1,17 +1,50 @@
+import { useState } from "react";
+import UseAuth from "../hoocks/UseAuth";
+
 const Register = () => {
+    const {createUser} = UseAuth();
+    const[success, setSuccess] = useState('')
+    const[error, setError] = useState('')
+
+    const handleRegister = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        const user = {email, password};
+        console.log(user);
+        setSuccess('');
+        setError('');
+
+        createUser(email, password)
+        .then(result => {
+            console.log(result.user);
+            setSuccess('created successfully done.')
+        })
+        .catch(error => {
+            console.log(error.message);
+            setError(error.message)
+        })
+    }
   return (
     <div className="w-full max-w-md p-8 space-y-2 rounded-xl bg-gray-900 text-gray-100 mx-auto mt-4">
+        {
+            success && <p className="text-green-500">{success}</p>
+        }
+        {
+            error && <p className="text-red-500">{error}</p>
+        }
       <h1 className="text-2xl font-bold text-center">Register</h1>
-      <form action="" className="space-y-6">
+      <form onSubmit={handleRegister} className="space-y-6">
         <div className="space-y-1 text-sm">
-          <label htmlFor="username" className="block dark:text-gray-400">
-            Username
+          <label htmlFor="email" className="block dark:text-gray-400">
+            Email
           </label>
           <input
             type="text"
-            name="username"
-            id="username"
-            placeholder="Username"
+            name="email"
+            id="email"
+            placeholder="email"
             className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 text-gray-900 focus:dark:border-violet-400"
           />
         </div>

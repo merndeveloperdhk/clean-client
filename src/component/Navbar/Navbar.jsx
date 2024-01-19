@@ -1,20 +1,43 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import UseAuth from "../../hoocks/UseAuth";
 
 
 const Navbar = () => {
+  const{user, logOut} = UseAuth()
+  const[success, setSuccess] = useState('')
+  const handleLogOut = () => {
+    logOut()
+    .then(() => {
+      console.log('logout successfully done');
+    })
+    setSuccess('logout successfully done')
+   
+  }
+
   const navMenu = (
     <>
       <NavLink to="/">Home</NavLink>
       <NavLink to="/post">Post User</NavLink>
       <NavLink to="/users">All User</NavLink>
-      <NavLink to="/admin">Admin</NavLink>
-      <NavLink to="/login">Login</NavLink>
+      
+      {
+        user?.email ?<>
+        <NavLink to="/admin">Admin</NavLink>
+        <NavLink to='/login'><button onClick={handleLogOut}>Logout</button></NavLink></> : <>
+        <NavLink to="/login">Login</NavLink>
       <NavLink to="/reg">Register</NavLink>
-      <NavLink to="/logout">logout</NavLink>
+        </>
+      }
+      
+      
     </>
   );
   return (
     <div>
+      {
+                success && <p>{success}</p>
+              }
       <div className="drawer">
         <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col">
@@ -40,6 +63,7 @@ const Navbar = () => {
                   ></path>
                 </svg>
               </label>
+              
             </div>
             <div className="flex-1 px-2 mx-2">Logo</div>
             <div className="flex-none hidden lg:block">

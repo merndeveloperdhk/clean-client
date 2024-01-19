@@ -1,18 +1,50 @@
+import {  useState } from "react";
+import { useNavigate } from "react-router-dom";
+import UseAuth from "../hoocks/UseAuth";
 
 const Login = () => {
+    const {login} = UseAuth()
+    const [success, setSuccess] = useState("");
+    const[error, setError] = useState("");
+    const navigate = useNavigate();
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const email = form.email.value;
+        const password = form.password.value;
+        const loggedUser = {email, password};
+        console.log(loggedUser);
+        login(email, password)
+        .then(result=> {
+            console.log(result.user);
+            setSuccess('Login successfully done')
+            navigate('/')
+        })
+        .catch(error => {
+            console.log(error.message);
+            setError(error.message)
+        })
+    }
     return (
         <div className="w-full max-w-md p-8 space-y-2 rounded-xl bg-gray-900 text-gray-100 mx-auto mt-4">
+            {
+                success && <p className="text-green-500">{success}</p>
+            }
+            {
+                error && <p className="text-red-500">{error}</p>
+            }
       <h1 className="text-2xl font-bold text-center">Login</h1>
-      <form action="" className="space-y-6">
+      <form onSubmit={handleLogin} className="space-y-6">
         <div className="space-y-1 text-sm">
-          <label htmlFor="username" className="block dark:text-gray-400">
-            Username
+          <label htmlFor="email" className="block dark:text-gray-400">
+            email
           </label>
           <input
             type="text"
-            name="username"
-            id="username"
-            placeholder="Username"
+            name="email"
+            id="email"
+            placeholder="email"
             className="w-full px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 text-gray-900 focus:dark:border-violet-400"
           />
         </div>

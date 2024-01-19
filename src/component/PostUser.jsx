@@ -66,11 +66,11 @@ const PostUser = () => {
       
       <h1>User: </h1>
       <form onSubmit={handlePostUser} action="">
-        <input type="text" name="name" id="" placeholder="Your name" className="border p-2 rounded" />
+        <input type="text" name="name" id="name" placeholder="Your name" className="border p-2 rounded" />
         <br /><br />
-        <input type="email" name="email" id="" placeholder="your email" className="border p-2 rounded" />
+        <input type="email" name="email" id="email" placeholder="your email" className="border p-2 rounded" />
         <br /><br />
-        <input type="password" name="password" id="" placeholder="********" className="border p-2 rounded" />
+        <input type="password" name="password" id="password" placeholder="********" className="border p-2 rounded" />
         <br /><br />
         <button type="submit" className="btn btn-secondary">Submit</button>
       </form>
